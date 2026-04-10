@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,9 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long patientId;
+    @NotNull
     private String fistName;
+    @NotNull
     private String lastName;
     private String phoneNumber;
     private String email;

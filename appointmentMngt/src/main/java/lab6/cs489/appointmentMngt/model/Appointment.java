@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,9 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long appointmentId;
-    @Nonnull
+    @NotNull
     private LocalDate appointmentDate;
-    @Nonnull
+    @NotNull
     private LocalTime appointmentTime;
     @ManyToOne
     @JoinColumn(name = "patient_id")

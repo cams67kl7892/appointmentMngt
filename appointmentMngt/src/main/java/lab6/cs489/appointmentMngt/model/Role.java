@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ import java.util.Set;
 public class Role {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private String roleId;
-    @Nonnull
+    @NotNull
     private String roleName;
     @ManyToMany(mappedBy = "roleList")
     private Set<User> users;

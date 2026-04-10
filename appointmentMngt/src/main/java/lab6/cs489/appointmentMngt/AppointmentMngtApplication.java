@@ -117,6 +117,8 @@ public class AppointmentMngtApplication {
 		patientRepository.save(patient);
 
 		Dentist dentist = new Dentist();
+		dentist.setFirstName("Camille");
+		dentist.setLastName("Hernandez");
 		dentistRepository.save(dentist);
 
 		Appointment appointment = new Appointment();

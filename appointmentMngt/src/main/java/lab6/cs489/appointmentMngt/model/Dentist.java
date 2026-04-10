@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,9 @@ public class Dentist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long dentistId;
-    @Nonnull
+    @NotNull
     private String  firstName;
-    @Nonnull
+    @NotNull
     private String lastName;
     private String phoneNumber;
     @OneToMany(mappedBy = "dentist")
