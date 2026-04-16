@@ -1,0 +1,42 @@
+type Address {
+    addressId: ID!,
+    location: String
+}
+
+type Patient {
+    patientId: ID!,
+    firstName: String,
+    lastName: String,
+    email: String,
+    phoneNumber: String,
+    address: Address,
+}
+
+type Surgery {
+    surgeryId: ID!,
+    name: String,
+    address: Address,
+    appointments: [Appointment]
+}
+
+type Dentist {
+    dentistId: ID!,
+    firstName: String,
+    lastName: String,
+    phoneNumber: String,
+    appoitments: [Appointment]
+}
+
+type Appointment {
+    appointmentId: ID!,
+    appointmentDate: String,
+    appointmentTime: String,
+    patient: Patient,
+    surgery: Surgery,
+    dentist: Dentist
+}
+
+type Query {
+    allAddresses: [Address!]!
+    publisherById(addressId: ID!): Address
+}

@@ -14,10 +14,15 @@ import lab6.cs489.appointmentMngt.repository.PatientRepository;
 import lab6.cs489.appointmentMngt.repository.RoleRepository;
 import lab6.cs489.appointmentMngt.repository.SurgeryRepository;
 import lab6.cs489.appointmentMngt.repository.UserRepository;
+import lab6.cs489.appointmentMngt.service.UserService;
+import lab6.cs489.appointmentMngt.service.impl.CustomUserDetailsService;
+import lab6.cs489.appointmentMngt.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.yaml.snakeyaml.tokens.DocumentEndToken;
 
 import java.time.LocalDate;
@@ -30,9 +35,12 @@ import java.util.Set;
 @SpringBootApplication
 public class AppointmentMngtApplication {
 
+	//private UserServiceImpl userService;
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(AppointmentMngtApplication.class, args);
+
 
 	}
 
@@ -42,13 +50,36 @@ public class AppointmentMngtApplication {
 						   AppointmentRepository appointmentRepository, UserRepository userRepository,
 						   RoleRepository roleRepository) {
 		return args -> {
-			 saveAddress(addressRepository);
-		     savePatient(patientRepository, addressRepository);
-		saveSurgery(surgeryRepository, addressRepository);
-			saveDentist(dentistRepository);
-			saveAppointment(appointmentRepository, addressRepository, surgeryRepository, patientRepository,
-					dentistRepository);
-			saveUserRole(userRepository, roleRepository);
+//			Role adminRole = new Role();
+//			adminRole.setRoleName("ADMIN");
+//
+//			Role dentistRole = new Role();
+//			dentistRole.setRoleName("DENTIST");
+//
+//			Role patientRole = new Role();
+//			patientRole.setRoleName("PATIENT");
+//
+//			roleRepository.saveAll(List.of(adminRole, dentistRole, patientRole));
+//
+//			User admin = new User();
+//			admin.setFirstName("Admin");
+//			admin.setLastName("User");
+//			admin.setUserName("admin");
+//			admin.setPassword(passwordEncoder.encode("admin123"));
+//
+//			admin.setRoleList(Set.of(adminRole));
+//
+//			userRepository.save(admin);
+			// User user = new User(1, "John", "Doe", "john123", "john123", null);
+			// userRepository.save(user);
+			// System.out.println(userService.findByUserName("john123"));
+//			 saveAddress(addressRepository);
+//		     savePatient(patientRepository, addressRepository);
+//		saveSurgery(surgeryRepository, addressRepository);
+//			saveDentist(dentistRepository);
+//			saveAppointment(appointmentRepository, addressRepository, surgeryRepository, patientRepository,
+//					dentistRepository);
+//			saveUserRole(userRepository, roleRepository);
 		};
 	}
 
