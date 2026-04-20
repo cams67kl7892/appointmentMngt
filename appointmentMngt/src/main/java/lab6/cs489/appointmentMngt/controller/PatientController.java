@@ -28,13 +28,9 @@ import java.util.Optional;
 @RequestMapping("/api/v1/patient")
 public class PatientController {
 
-//  private final PatientRepository patientRepository;
-//  private final AddressRepository addressRepository;
   private final PatientService patientService;
 
     public PatientController(PatientRepository patientRepository, AddressRepository addressRepository, PatientServiceImpl patientService) {
-//        this.patientRepository = patientRepository;
-//        this.addressRepository = addressRepository;
         this.patientService = patientService;
     }
 
