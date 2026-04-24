@@ -1,6 +1,5 @@
 package lab6.cs489.appointmentMngt.repository;
 
-import lab6.cs489.appointmentMngt.dto.PatientDto;
 import lab6.cs489.appointmentMngt.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,10 +11,11 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    @Query("SELECT p FROM Patient p " +
+    @Query(value = "SELECT p FROM Patient p " +
             "WHERE LOWER(p.lastName) LIKE LOWER(CONCAT('%', :search, '%')) " +
-            "OR LOWER(p.fistName) LIKE LOWER(CONCAT('%', :search, '%')) " +
-            "OR LOWER(p.email) LIKE LOWER(CONCAT('%', :search, '%'))")
+            "OR LOWER(p.firstName) LIKE LOWER(CONCAT('%', :search, '%')) " +
+            "OR LOWER(p.email) LIKE LOWER(CONCAT('%', :search, '%'))" +
+             "OR LOWER(p.phoneNumber) LIKE LOWER(CONCAT('%', :search, '%'))")
     List<Patient> searchPatients(@Param("search") String search);
 
 }

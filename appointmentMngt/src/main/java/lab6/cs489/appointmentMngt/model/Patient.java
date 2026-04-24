@@ -26,16 +26,22 @@ import java.util.List;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long patientId;
+    private Long patientId;
+
     @NotNull
-    private String fistName;
+    private String firstName;
+
     @NotNull
     private String lastName;
+
     private String phoneNumber;
+
     private String email;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
+
     @OneToMany(mappedBy = "patient")
     List<Appointment> appointmentList;
 }

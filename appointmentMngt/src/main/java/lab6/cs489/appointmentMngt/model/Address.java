@@ -20,8 +20,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Address {
+
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long addressId;
+    private Long addressId;
+
     @NotNull
     private String location;
 }

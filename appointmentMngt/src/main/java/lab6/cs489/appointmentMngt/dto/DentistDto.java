@@ -15,12 +15,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class DentistDto {
-
+    private Long dentistId;
     private String  firstName;
     private String lastName;
     private String phoneNumber;
-    private List<AppointmentDto> appointmentList;
 }

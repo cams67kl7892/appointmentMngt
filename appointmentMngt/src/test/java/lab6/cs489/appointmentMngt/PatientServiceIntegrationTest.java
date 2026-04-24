@@ -31,7 +31,7 @@ public class PatientServiceIntegrationTest {
             Address address = new Address();
             address.setLocation("123 Main St");
             savedPatient = new Patient();
-            savedPatient.setFistName("John");
+            savedPatient.setFirstName("John");
             savedPatient.setLastName("Doe");
             savedPatient.setAddress(address);
             savedPatient.getAppointmentList().add(null); // Add a dummy appointment if needed
@@ -44,7 +44,7 @@ public class PatientServiceIntegrationTest {
             PatientDto result = patientService.getPatientById(savedPatient.getPatientId());
 
             assertNotNull(result);
-            assertEquals("John", result.getFistName());
+            assertEquals("John", result.getFirstName());
         }
 
         @Test

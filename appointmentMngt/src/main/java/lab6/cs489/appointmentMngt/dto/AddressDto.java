@@ -8,8 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class AddressDto {
+    private Long addressId;
     private String location;
 }

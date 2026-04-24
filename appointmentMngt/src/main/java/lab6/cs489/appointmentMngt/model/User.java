@@ -1,6 +1,5 @@
 package lab6.cs489.appointmentMngt.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,16 +23,22 @@ import java.util.Set;
 @Getter
 @Setter
 public class User {
+
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private Long userId;
+
     @NotNull
     private String firstName;
+
     @NotNull
     private String lastName;
+
     @NotNull
     private String userName;
+
     @NotNull
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

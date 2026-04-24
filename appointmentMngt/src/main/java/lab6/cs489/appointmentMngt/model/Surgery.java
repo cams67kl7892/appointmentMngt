@@ -1,6 +1,5 @@
 package lab6.cs489.appointmentMngt.model;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,13 +23,18 @@ import java.util.List;
 @Getter
 @Setter
 public class Surgery {
+
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long surgeryId;
+    private Long surgeryId;
+
     private String name;
+
     private String phoneNumber;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressId")
     private Address address;
+
     @OneToMany(mappedBy = "surgery")
     List<Appointment> appointmentList;
 }

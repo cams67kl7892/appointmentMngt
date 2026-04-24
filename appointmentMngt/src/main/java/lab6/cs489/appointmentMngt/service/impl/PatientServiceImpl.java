@@ -1,13 +1,10 @@
 package lab6.cs489.appointmentMngt.service.impl;
 
-
-import lab6.cs489.appointmentMngt.dto.AddressDto;
-import lab6.cs489.appointmentMngt.dto.AppointmentDto;
+import lab6.cs489.appointmentMngt.Adapter.PatientMapping;
 import lab6.cs489.appointmentMngt.dto.PatientDto;
 import lab6.cs489.appointmentMngt.exceptions.ResourceNotFoundException;
 import lab6.cs489.appointmentMngt.model.Address;
 import lab6.cs489.appointmentMngt.model.Patient;
-import lab6.cs489.appointmentMngt.repository.AddressRepository;
 import lab6.cs489.appointmentMngt.repository.PatientRepository;
 import lab6.cs489.appointmentMngt.service.PatientService;
 import lombok.AllArgsConstructor;
@@ -25,20 +22,18 @@ import java.util.stream.Collectors;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
-    private final ModelMapper modelMapper;
-  //  private final AddressRepository addressRepository;
 
     public List<PatientDto> getPatients() {
         return patientRepository.findAll()
                 .stream()
-                .map(this::convertToDto)
+                .map(PatientMapping::toDto)
                 .collect(Collectors.toList());
     }
 
     public PatientDto getPatientById(Long id) {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
-        return convertToDto(patient);
+        return PatientMapping.toDto(patient);
     }
 
     public List<PatientDto> searchPatients(String searchString) {
@@ -46,14 +41,17 @@ public class PatientServiceImpl implements PatientService {
         List<Patient> patients = patientRepository.searchPatients(searchString);
 
         return patients.stream()
-                .map(this::convertToDto)
+                .map(PatientMapping::toDto)
                 .collect(Collectors.toList());
     }
 
-    public PatientDto createPatient(PatientDto dto) {
-        Patient patient = convertToEntity(dto);
+    public PatientDto createPatient(PatientDto patientDto) {
+        if(patientDto == null) {
+            throw new IllegalArgumentException("Patient data must not be null");
+        }
+        Patient patient = PatientMapping.toEntity(patientDto);
         patientRepository.save(patient);
-        return convertToDto(patient);
+        return patientDto;
     }
 
     public String deletePatient(@PathVariable Long id) {
@@ -69,34 +67,31 @@ public class PatientServiceImpl implements PatientService {
     }
 
 
-    public PatientDto updatePatient(@PathVariable Long id, @RequestBody PatientDto dto) {
+    public PatientDto updatePatient(@PathVariable Long id, @RequestBody PatientDto patientDto) {
+        if(id == null) {
+            throw new IllegalArgumentException("Patient id must not be null");
+        }
+
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Patient not found with id: " + id));
         patient.setPatientId(id);
-        patient.setFistName(dto.getFistName());
-        patient.setLastName(dto.getLastName());
-        patient.setPhoneNumber(dto.getPhoneNumber());
-        patient.setEmail(dto.getEmail());
+        patient.setFirstName(patientDto.getFirstName());
+        patient.setLastName(patientDto.getLastName());
+        patient.setPhoneNumber(patientDto.getPhoneNumber());
+        patient.setEmail(patientDto.getEmail());
 
-        if (dto.getAddress() != null) {
+        if (patientDto.getAddress() != null) {
             Address address = patient.getAddress();
             if (address == null) {
                 address = new Address();
             }
-            address.setLocation(dto.getAddress().getLocation());
+            address.setLocation(patientDto.getAddress().getLocation());
             patient.setAddress(address);
         }
-        Patient patientUpdated = patientRepository.save(patient);
+        patientRepository.save(patient);
 
-        return convertToDto(patientUpdated);
+        return patientDto;
     }
 
-    public PatientDto convertToDto(Patient patient) {
-        return modelMapper.map(patient, PatientDto.class);
-    }
-
-    public Patient convertToEntity(PatientDto patientDto) {
-        return modelMapper.map(patientDto, Patient.class);
-    }
 }

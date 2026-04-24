@@ -1,15 +1,10 @@
 package lab6.cs489.appointmentMngt.controller;
 
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lab6.cs489.appointmentMngt.dto.PatientDto;
-import lab6.cs489.appointmentMngt.exceptions.ResourceNotFoundException;
-import lab6.cs489.appointmentMngt.model.Address;
-import lab6.cs489.appointmentMngt.model.Patient;
 import lab6.cs489.appointmentMngt.repository.AddressRepository;
 import lab6.cs489.appointmentMngt.repository.PatientRepository;
 import lab6.cs489.appointmentMngt.service.PatientService;
-import lab6.cs489.appointmentMngt.service.impl.PatientServiceImpl;
-import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,48 +16,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
-@RequestMapping("/api/v1/patient")
+@RequestMapping("/api/v1")
+@Tag(name = "Patients", description = "APIs for managing patients")
 public class PatientController {
 
   private final PatientService patientService;
 
-    public PatientController(PatientRepository patientRepository, AddressRepository addressRepository, PatientServiceImpl patientService) {
+    public PatientController(PatientRepository patientRepository, AddressRepository addressRepository,
+                             PatientService patientService) {
         this.patientService = patientService;
     }
 
-    @GetMapping("")
-    public List<PatientDto> getPatients() {
-        return patientService.getPatients();
+    @GetMapping("/patients")
+    public ResponseEntity<List<PatientDto>> getPatients() {
+        return ResponseEntity.ok(patientService.getPatients());
     }
 
-    @GetMapping("/{id}")
-    public PatientDto getPatientById(@PathVariable Long id) {
-        return patientService.getPatientById(id);
+    @GetMapping("/patient/{id}")
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable Long id) {
+        return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
-    @PostMapping("")
-    public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto dto) {
-        PatientDto patientDto = patientService.createPatient(dto);
-        return  ResponseEntity.ok(patientDto);
+    @PostMapping("/patient")
+    public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
+        patientService.createPatient(patientDto);
+        return  ResponseEntity.status(201).body(patientDto);
     }
 
-    @DeleteMapping("/{id}")
-    public String deletePatient(@PathVariable Long id) {
+    @DeleteMapping("/patient/{id}")
+    public ResponseEntity<String> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
-     return "Patient deleted successfully";
+     return ResponseEntity.status(204).body("Patient deleted successfully");
     }
 
-    @PutMapping("/{id}")
-    public PatientDto updatePatient(@PathVariable Long id, @RequestBody PatientDto dto) {
-        return patientService.updatePatient(id, dto);
+    @PutMapping("/patient/{id}")
+    public ResponseEntity<PatientDto> updatePatient(@PathVariable Long id, @RequestBody PatientDto dto) {
+        return ResponseEntity.status(200).body(patientService.updatePatient(id, dto));
     }
 
-    @GetMapping("search/{searchString}")
-    public List<PatientDto> searchPatients(@PathVariable String searchString) {
-        return patientService.searchPatients(searchString);
+    @GetMapping("patients/{searchString}")
+    public ResponseEntity<List<PatientDto>> searchPatients(@PathVariable String searchString) {
+        return ResponseEntity.ok(patientService.searchPatients(searchString));
     }
 }

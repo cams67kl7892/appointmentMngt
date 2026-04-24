@@ -1,13 +1,12 @@
 package lab6.cs489.appointmentMngt.model;
 
-
-import jakarta.annotation.Nonnull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -26,20 +25,27 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class Appointment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long appointmentId;
+    private Long appointmentId;
+
     @NotNull
     private LocalDate appointmentDate;
+
     @NotNull
+    @JsonFormat(pattern = "hh:mm a")
     private LocalTime appointmentTime;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="surgery_id")
     private Surgery surgery;
-    @ManyToOne()
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dentist_id")
     private Dentist dentist;
 }

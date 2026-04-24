@@ -15,27 +15,21 @@ import lab6.cs489.appointmentMngt.repository.RoleRepository;
 import lab6.cs489.appointmentMngt.repository.SurgeryRepository;
 import lab6.cs489.appointmentMngt.repository.UserRepository;
 import lab6.cs489.appointmentMngt.service.UserService;
-import lab6.cs489.appointmentMngt.service.impl.UserServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
 public class AppointmentMngtApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(AppointmentMngtApplication.class, args);
-
-
 	}
 
 	@Bean
@@ -86,7 +80,7 @@ public class AppointmentMngtApplication {
 		addressRepository.save(address);
 
 		Patient patient = new Patient();
-		patient.setFistName("Alan");
+		patient.setFirstName("Alan");
 		patient.setLastName("Smith");
 		patient.setPhoneNumber("1234567890");
 		patient.setEmail("p2@gmail.com");
@@ -127,7 +121,7 @@ public class AppointmentMngtApplication {
 		surgeryRepository.save(surgery);
 
 		Patient patient = new Patient();
-		patient.setFistName("susan");
+		patient.setFirstName("susan");
 		patient.setLastName("lagardia");
 		patient.setAddress(address);
 		patientRepository.save(patient);

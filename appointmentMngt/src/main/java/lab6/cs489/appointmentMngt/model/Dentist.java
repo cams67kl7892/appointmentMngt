@@ -1,12 +1,10 @@
 package lab6.cs489.appointmentMngt.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -23,14 +21,19 @@ import java.util.List;
 @Getter
 @Setter
 public class Dentist {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long dentistId;
+    private Long dentistId;
+
     @NotNull
     private String  firstName;
+
     @NotNull
     private String lastName;
+
     private String phoneNumber;
+
     @OneToMany(mappedBy = "dentist")
     private List<Appointment> appointmentList;
 }

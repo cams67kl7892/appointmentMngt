@@ -1,7 +1,5 @@
 package lab6.cs489.appointmentMngt.model;
 
-
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,10 +20,13 @@ import java.util.Set;
 @Getter
 @Setter
 public class Role {
+
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private String roleId;
+    private Long roleId;
+
     @NotNull
     private String roleName;
+
     @ManyToMany(mappedBy = "roleList")
     private Set<User> users;
 }

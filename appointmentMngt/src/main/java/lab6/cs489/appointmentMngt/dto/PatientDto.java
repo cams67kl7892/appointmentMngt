@@ -9,13 +9,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class PatientDto {
-    private String fistName;
+    private Long patientId;
+    private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
     private AddressDto address;
-    List<AppointmentDto> appointmentList;
 }
